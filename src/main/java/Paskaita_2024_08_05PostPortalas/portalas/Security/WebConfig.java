@@ -15,7 +15,7 @@ public class WebConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("*") // Allow all origins
-                        .allowedOrigins("http://localhost:3000", "http://127.0.0.1:5500/") // Specific origins if needed
+                        .allowedOrigins("http://localhost:3000", "http://127.0.0.1:5500/","http://localhost:7778/") // Specific origins if needed
                         .allowedMethods("GET", "POST")
                         .allowedHeaders("*")
                         .allowCredentials(true); // Pastatyti true jei reikes tiksliu adresu
