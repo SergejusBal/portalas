@@ -29,8 +29,8 @@ public class PostService {
         return postRepository.createPost(posts);
     }
 
-    public List<Posts> getPosts(){
-        return postRepository.getPosts();
+    public List<Posts> getPosts(int limit, int offset){
+        return postRepository.getPosts(limit, offset);
     }
 
 

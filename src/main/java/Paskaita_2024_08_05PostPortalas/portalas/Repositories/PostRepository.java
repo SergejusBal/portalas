@@ -52,15 +52,17 @@ public class PostRepository {
 
     }
 
-    public List<Posts> getPosts(){
+    public List<Posts> getPosts(int limit, int offset){
 
         List<Posts> postList = new ArrayList<>();
 
-        String sql = "SELECT * FROM posts";
+        String sql = "SELECT * FROM posts LIMIT ? OFFSET ?";
 
         try {
             Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,limit);
+            preparedStatement.setInt(2,offset);
 
             ResultSet resultSet =  preparedStatement.executeQuery();
 

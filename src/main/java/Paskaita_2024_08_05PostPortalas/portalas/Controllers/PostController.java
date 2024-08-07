@@ -34,9 +34,9 @@ public class PostController {
 
 
     @GetMapping("/posts")
-    public ResponseEntity<List<Posts>> getPosts() {
+    public ResponseEntity<List<Posts>> getPosts(@RequestParam int limit, int offset) {
 
-        List<Posts> posts = postService.getPosts();
+        List<Posts> posts = postService.getPosts(limit, offset);
 
         if(posts.isEmpty()) return new ResponseEntity<>(posts, HttpStatus.NO_CONTENT);
         else return new ResponseEntity<>(posts, HttpStatus.OK);
