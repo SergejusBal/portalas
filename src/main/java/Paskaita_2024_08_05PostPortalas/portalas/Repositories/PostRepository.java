@@ -56,7 +56,7 @@ public class PostRepository {
 
         List<Posts> postList = new ArrayList<>();
 
-        String sql = "SELECT * FROM posts LIMIT ? OFFSET ?";
+        String sql = "SELECT * FROM posts ORDER BY id desc LIMIT ? OFFSET ?";
 
         try {
             Connection connection = DriverManager.getConnection(url, username, password);
