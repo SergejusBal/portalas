@@ -13,23 +13,17 @@ import java.util.List;
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:5500","http://localhost:7778/"})
 @RestController
 public class PostController {
-
+    @Autowired
     private PostService postService;
 
-    @Autowired
-    public PostController(PostService postService){
-        this.postService = postService;
-    }
-
-
     @PostMapping("/posts")
-    public ResponseEntity<String> createpost(@RequestBody Posts posts) {
+    public ResponseEntity<String> createpost(@RequestBody Posts posts, @RequestHeader("PaymentCode") String paymentCode, @RequestHeader("PaymentID") int paymentID) {
 
-        String response = postService.createPost(posts);
+        String response = postService.createPost(posts,paymentID,paymentCode);
         HttpStatus status = checkHttpStatus(response);
 
-        if(status == HttpStatus.OK) return new ResponseEntity<>(response, status);
-        else return new ResponseEntity<>(response, status);
+        return new ResponseEntity<>(response, status);
+
     }
 
 
@@ -42,8 +36,6 @@ public class PostController {
         else return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-
-
     private HttpStatus checkHttpStatus(String response){
 
         switch (response){
@@ -51,8 +43,12 @@ public class PostController {
                 return HttpStatus.INTERNAL_SERVER_ERROR;
             case "Invalid data", "Invalid phone format":
                 return HttpStatus.BAD_REQUEST;
-            default:
+            case "Payment needed":
+                return HttpStatus.PAYMENT_REQUIRED;
+            case "Post was successfully added":
                 return HttpStatus.OK;
+            default:
+                return HttpStatus.NOT_IMPLEMENTED;
         }
 
     }

@@ -48,7 +48,7 @@ public class PostRepository {
             return "Database connection failed";
         }
 
-        return "Post was successfully added ";
+        return "Post was successfully added";
 
     }
 
@@ -87,6 +87,8 @@ public class PostRepository {
 
         return postList;
     }
+
+
 
 
     private LocalDateTime formatDateTime(String dateTime){
